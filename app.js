@@ -4,8 +4,9 @@ let countriesStats = [];
 
 async function init() {
   let stats = await getStats();
-  let topDeaths = getTopCountries(stats.countries, 'TotalDeaths', 10)
-  console.log(topDeaths)
+  let topDeaths = getTopCountries(stats.countries, 'TotalDeaths', 10);
+  let countryData = await getCountryData('brazil', '2022-01-01', '2022-01-31');
+  console.log(countryData)
 }
 
 init();
@@ -20,6 +21,22 @@ async function getStats() {
 function getTopCountries(allCountries, stat, amount = 10, order = 'desc') {
   let ord = order === 'desc' ? -1 : 1;
   return allCountries.sort((a, b) => ((a[stat] - b[stat]) * ord)).slice(0, amount);
+}
+
+async function getCountryData(country, startDate, endDate) {
+  let separator = startDate || endDate ? '?' : '';
+  let url = `${baseUrl}/country/${country}${separator}`
+  if (startDate) {
+    url += `from=${startDate}`;
+  }
+  if (startDate && endDate) {
+    url += `&`;
+  }
+  if (endDate) {
+    url += `to=${endDate}`;
+  }
+  console.log({url})
+  return fetchJson(url);
 }
 
 function fetchJson(url, options) {
