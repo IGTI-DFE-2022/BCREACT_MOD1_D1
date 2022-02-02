@@ -31,3 +31,26 @@ nav ul li {
   padding: 1rem;
   cursor: pointer;
 }
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}
+
+.stats .stat {
+  padding: 1rem 3rem;
+  background-color: aqua;
+  margin: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.stats .stat .title {
+  font-weight: bold;
+}

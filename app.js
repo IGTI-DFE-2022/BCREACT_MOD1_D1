@@ -6,7 +6,8 @@ async function init() {
   let stats = await getStats();
   let topDeaths = getTopCountries(stats.countries, 'TotalDeaths', 10);
   let countryData = await getCountryData('brazil', '2022-01-01', '2022-01-31');
-  console.log(countryData)
+  showGlobalStats(stats.global)
+  console.log(stats)
 }
 
 init();
@@ -37,6 +38,18 @@ async function getCountryData(country, startDate, endDate) {
   }
   console.log({url})
   return fetchJson(url);
+}
+
+function showGlobalStats(globalStats) {
+  let confirmedEl = document.querySelector('#total-confirmed');
+  let deathEl = document.querySelector('#total-deaths');
+  let recoveredEl = document.querySelector('#total-recovered');
+  confirmedEl.innerText = globalStats.TotalConfirmed;
+  deathEl.innerText = globalStats.TotalDeaths;
+  recoveredEl.innerText = globalStats.TotalRecovered;
+  let dateEl = document.querySelector('.stats .date');
+  dateEl.innerText = globalStats.Date;
+
 }
 
 function fetchJson(url, options) {
