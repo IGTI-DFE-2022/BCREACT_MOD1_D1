@@ -1,17 +1,27 @@
 import { getCountryData, getAllCountries } from './api.js';
-import { dateToString } from './util.js';
+import { dateToString, watchInputChanges, delay, formatLongInteger } from './util.js';
 
 let startDateEl = document.querySelector('#data-inicio');
 let endDateEl = document.querySelector('#data-fim');
 let countryEl = document.querySelector('#pais');
 let infoEl = document.querySelector('#dado');
+let confirmedEl = document.querySelector('#stat-confirmed');
+let deathEl = document.querySelector('#stat-deaths');
+let recoveredEl = document.querySelector('#stat-recovered');
+
+let topDeathsChart;
 
 async function init() {
   let countryData = await getCountryData('brazil', '2022-01-01', '2022-01-31');
   console.log({ countryData });
-  populateAllCountries();
+  await populateAllCountries();
+  populateDados();
   setStartingData();
-  showGraph(countryData, 'Deaths');
+  // showStats(countryData);
+  // showGraph(countryData, 'Deaths');
+  await onFilterChanges();
+  let delayedLoad = delay(onFilterChanges, 500);
+  watchInputChanges(delayedLoad, startDateEl, endDateEl, countryEl, infoEl)
 }
 
 init();
@@ -20,6 +30,15 @@ function setStartingData() {
   let startOfYear = new Date(2022, 0, 1);
   startDateEl.value = dateToString(startOfYear);
   endDateEl.value = dateToString(new Date());
+  countryEl.value = 'brazil';
+  infoEl.value = 'Deaths'
+}
+
+async function onFilterChanges() {
+  console.log('calling onFilterChanges');
+  let countryData = await getCountryData(countryEl.value, startDateEl.value, endDateEl.value);
+  showGraph(countryData, infoEl.value);
+  showStats(countryData);
 }
 
 async function populateAllCountries() {
@@ -34,7 +53,30 @@ async function populateAllCountries() {
   })
 }
 
+function populateDados() {
+  infoEl.innerHTML = "";
+  let stats = ['Active', 'Confirmed', 'Deaths', 'Recovered']
+  stats.sort();
+  stats.forEach(c => {
+    let opt = document.createElement('option');
+    opt.value = c;
+    opt.innerText = c;
+    infoEl.appendChild(opt);
+  });
+}
+
+function showStats(countryData) {
+  let last = countryData[countryData.length - 1];
+  confirmedEl.innerText = formatLongInteger(last.Confirmed);
+  deathEl.innerText = formatLongInteger(last.Deaths);
+  recoveredEl.innerText = formatLongInteger(last.Recovered);
+}
+
 function showGraph(countryData, stat) {
+  if (topDeathsChart) {
+    topDeathsChart.destroy();
+  }
+
   const data = {
     labels: countryData.map(c => c.Date.split("T")[0]),
     datasets: [
@@ -78,7 +120,7 @@ function showGraph(countryData, stat) {
     },
   };
 
-  const topDeathsChart = new Chart(
+  topDeathsChart = new Chart(
     document.getElementById('country-chart'),
     config
   );
