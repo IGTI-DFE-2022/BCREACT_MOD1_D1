@@ -5,3 +5,7 @@ export function fetchJson(url, options) {
 export function formatLongInteger(number) {
   return new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(number)
 }
+
+export function dateToString(date) {
+  return date.toISOString().split("T")[0];
+}
