@@ -40,7 +40,7 @@ main {
 .stats {
   display: flex;
   flex-wrap: wrap;
-  flex: 1 1 auto;
+  justify-content: space-between;
 }
 
 .stats .stat {
@@ -49,8 +49,10 @@ main {
   margin: 1rem;
   border-radius: 1rem;
   text-align: center;
+  flex: 1 1 auto;
 }
 
 .stats .stat .title {
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }

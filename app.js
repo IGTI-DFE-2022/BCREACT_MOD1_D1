@@ -44,9 +44,9 @@ function showGlobalStats(globalStats) {
   let confirmedEl = document.querySelector('#total-confirmed');
   let deathEl = document.querySelector('#total-deaths');
   let recoveredEl = document.querySelector('#total-recovered');
-  confirmedEl.innerText = globalStats.TotalConfirmed;
-  deathEl.innerText = globalStats.TotalDeaths;
-  recoveredEl.innerText = globalStats.TotalRecovered;
+  confirmedEl.innerText = formatLongInteger(globalStats.TotalConfirmed);
+  deathEl.innerText = formatLongInteger(globalStats.TotalDeaths);
+  recoveredEl.innerText = formatLongInteger(globalStats.TotalRecovered);
   let dateEl = document.querySelector('.stats .date');
   dateEl.innerText = globalStats.Date;
 
@@ -54,4 +54,8 @@ function showGlobalStats(globalStats) {
 
 function fetchJson(url, options) {
   return fetch(url, options).then(d => d.json());
+}
+
+function formatLongInteger(number) {
+  return new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(number)
 }
