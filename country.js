@@ -13,7 +13,7 @@ let topDeathsChart;
 
 async function init() {
   let countryData = await getCountryData('brazil', '2022-01-01', '2022-01-31');
-  addDailyDeaths(countryData);
+  addDailyStats(countryData);
   console.log({ countryData });
   await populateAllCountries();
   populateDados();
@@ -35,6 +35,11 @@ function setStartingData() {
   infoEl.value = 'Deaths'
 }
 
+function addDailyStats(countryData) {
+  addDailyDeaths(countryData);
+  addDailyConfirmed(countryData);
+}
+
 function addDailyDeaths(countryData) {
   for (let i = 0; i < countryData.length; i++) {
     if (i == 0) {
@@ -45,10 +50,20 @@ function addDailyDeaths(countryData) {
   }
 }
 
+function addDailyConfirmed(countryData) {
+  for (let i = 0; i < countryData.length; i++) {
+    if (i == 0) {
+      countryData[i].DailyConfirmed = 0;
+    } else {
+      countryData[i].DailyConfirmed = countryData[i].Confirmed - countryData[i - 1].Confirmed;
+    }
+  }
+}
+
 async function onFilterChanges() {
   console.log('calling onFilterChanges');
   let countryData = await getCountryData(countryEl.value, startDateEl.value, endDateEl.value);
-  addDailyDeaths(countryData);
+  addDailyStats(countryData);
   showGraph(countryData, infoEl.value);
   showStats(countryData);
 }
@@ -67,7 +82,7 @@ async function populateAllCountries() {
 
 function populateDados() {
   infoEl.innerHTML = "";
-  let stats = ['Active', 'Confirmed', 'Deaths', 'Recovered', 'DailyDeaths']
+  let stats = ['Active', 'Confirmed', 'DailyConfirmed', 'Deaths', 'Recovered', 'DailyDeaths']
   stats.sort();
   stats.forEach(c => {
     let opt = document.createElement('option');
