@@ -65,6 +65,16 @@ function populateDados() {
   });
 }
 
+function calculateAverage(countryData, stat) {
+  let sum = 0;
+  let amount = 0;
+  for (let day of countryData) {
+    sum += day[stat];
+    amount += 1;
+  }
+  return (1.0 * sum) / amount;
+}
+
 function showStats(countryData) {
   let last = countryData[countryData.length - 1];
   confirmedEl.innerText = formatLongInteger(last.Confirmed);
@@ -77,6 +87,8 @@ function showGraph(countryData, stat) {
     topDeathsChart.destroy();
   }
 
+  let average = calculateAverage(countryData, stat);
+
   const data = {
     labels: countryData.map(c => c.Date.split("T")[0]),
     datasets: [
@@ -84,22 +96,21 @@ function showGraph(countryData, stat) {
         label: stat,
         data: countryData.map(c => c[stat]),
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
+          "rgba(0, 0, 255, 0.2)"
         ],
         borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
+          "rgb(0, 0, 255)"
+        ],
+        borderWidth: 1,
+      },
+      {
+        label: 'Average',
+        data: countryData.map(c => average),
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)"
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)"
         ],
         borderWidth: 1,
       },
@@ -107,7 +118,7 @@ function showGraph(countryData, stat) {
   };
 
   const config = {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: {
       scales: {
