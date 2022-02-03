@@ -9,9 +9,8 @@ form {
   width: 100%;
 }
 
-label > input,
-label > select {
-  margin-left: 1rem;
+select {
+  max-width: 10rem;
 }
 
 .input-line {
@@ -31,12 +30,6 @@ main {
   grid-template-columns: 18rem 1fr;
   grid-template-rows: 1fr auto;
   height: calc(100% - 50.4px);
-}
-
-.filter,
-.graph,
-.stats {
-  border: 1px solid red;
 }
 
 .filter {

@@ -31,3 +31,7 @@ export async function getCountryData(country, startDate, endDate) {
   console.log({url})
   return fetchJson(url);
 }
+
+export function getAllCountries() {
+  return fetchJson(baseUrl + "/countries")
+}
