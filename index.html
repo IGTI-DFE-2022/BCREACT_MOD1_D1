@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel - Covid 19</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+    integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="app.js"></script>
 </head>
+
 <body>
   <nav>
     <ul>
@@ -27,28 +31,38 @@
           <div class="title">Total Confirmados</div>
           <div class="value" id="total-confirmed"></div>
         </div>
-        
+
         <div class="stat">
           <div class="title">Total Mortes</div>
           <div class="value" id="total-deaths"></div>
         </div>
-        
+
         <div class="stat">
           <div class="title">Total Recuperados</div>
           <div class="value" id="total-recovered"></div>
         </div>
-        
+
       </div>
-      
+
       <div class="date"></div>
 
     </div>
 
-    <div class="chart new-chart">
-      <h2>Novos Casos</h2>
-      <canvas id="new-chart" width="600" height="400"></canvas>
+    <div class="charts">
+
+      <div class="chart new-chart">
+        <h2>Novos Casos</h2>
+        <canvas id="new-chart"></canvas>
+      </div>
+
+      <div class="chart countries-chart">
+        <h2>Total de Mortes por País - Top 10</h2>
+        <canvas id="countries-chart"></canvas>
+      </div>
     </div>
+
 
   </main>
 </body>
+
 </html>

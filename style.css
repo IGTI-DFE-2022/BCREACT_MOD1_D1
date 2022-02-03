@@ -1,5 +1,5 @@
 :root {
-  --max-width: 768px;
+  --max-width: 1080px;
 }
 
 
@@ -57,10 +57,24 @@ main {
   margin-bottom: 0.5rem;
 }
 
-.chart {
+.charts {
+  display: flex;
+}
+
+.charts .chart {
+  /* width: 600px; */
+  height: 400px;
   text-align: center;
 }
 
 .new-chart {
-  width: 50%;
+  width: 30%;
+}
+
+.countries-chart {
+  width: 70%;
+}
+
+.charts canvas {
+  width: 100%;
 }
