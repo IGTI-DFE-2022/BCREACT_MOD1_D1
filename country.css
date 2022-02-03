@@ -29,7 +29,7 @@ main {
     "filter stats";
   grid-gap: 1rem;
   grid-template-columns: 18rem 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr auto;
   height: calc(100% - 50.4px);
 }
 
@@ -42,4 +42,16 @@ main {
 .filter {
   grid-area: filter;
   padding: 0 1rem;
+}
+
+.graph canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-end;
 }
