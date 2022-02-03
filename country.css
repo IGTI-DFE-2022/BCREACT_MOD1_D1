@@ -5,7 +5,8 @@ form {
   width: 100%;
 }
 
-label > input {
+label > input,
+label > select {
   margin-left: 1rem;
 }
 
