@@ -57,6 +57,10 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.chart {
+  text-align: center;
+}
+
 .new-chart {
   width: 50%;
 }
