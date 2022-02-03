@@ -6,7 +6,8 @@ async function init() {
   let stats = await getStats();
   let topDeaths = getTopCountries(stats.countries, 'TotalDeaths', 10);
   let countryData = await getCountryData('brazil', '2022-01-01', '2022-01-31');
-  showGlobalStats(stats.global)
+  showGlobalStats(stats.global);
+  renderNewStatsChart(stats.global);
   console.log(stats)
 }
 
@@ -47,9 +48,35 @@ function showGlobalStats(globalStats) {
   confirmedEl.innerText = formatLongInteger(globalStats.TotalConfirmed);
   deathEl.innerText = formatLongInteger(globalStats.TotalDeaths);
   recoveredEl.innerText = formatLongInteger(globalStats.TotalRecovered);
-  let dateEl = document.querySelector('.stats .date');
+  let dateEl = document.querySelector('.stats-box .date');
   dateEl.innerText = globalStats.Date;
 
+}
+
+function renderNewStatsChart(globalStats) {
+  const data = {
+    labels: ['Confirmados', 'Recuperados', 'Mortes'],
+    datasets: [{
+      label: 'Distribuição de Novos Casos',
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      data: [globalStats.NewConfirmed, globalStats.NewRecovered, globalStats.NewDeaths],
+    }]
+  };
+
+  const config = {
+    type: 'pie',
+    data: data,
+    options: {}
+  };
+
+  const newChart = new Chart(
+    document.getElementById('new-chart'),
+    config
+  );
 }
 
 function fetchJson(url, options) {
