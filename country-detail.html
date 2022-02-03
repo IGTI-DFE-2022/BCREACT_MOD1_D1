@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="country.css">
   <script type="module" src="country.js"></script>
 </head>
+
 <body>
   <nav>
     <ul>
@@ -19,13 +21,27 @@
   </nav>
 
   <main>
-
     <div class="filter">
       <form>
-        <label for="data-inicio">Data Início<input type="date" name="data-inicio" id="data-inicio"></label>
-        <label for="data-fim">Data Fim<input type="date" name="data-fim" id="data-fim"></label>
-        <label for="pais">País: <select name="pais" id="pais"></select></label>
-        <label for="dado">Dados: <select name="dado" id="dado"></select></label>
+        <div class="input-line">
+          <label for="data-inicio">Data Início</label>
+          <input type="date" name="data-inicio" id="data-inicio">
+        </div>
+
+        <div class="input-line">
+          <label for="data-fim">Data Fim</label>
+          <input type="date" name="data-fim" id="data-fim">
+        </div>
+
+        <div class="input-line">
+          <label for="pais">País: </label>
+          <select name="pais" id="pais"></select>
+        </div>
+
+        <div class="input-line">
+          <label for="dado">Dados: </label>
+          <select name="dado" id="dado"></select>
+        </div>
       </form>
     </div>
 
@@ -35,4 +51,5 @@
 
   </main>
 </body>
+
 </html>
