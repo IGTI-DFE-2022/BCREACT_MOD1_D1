@@ -38,6 +38,7 @@ function setStartingData() {
 function addDailyStats(countryData) {
   addDailyDeaths(countryData);
   addDailyConfirmed(countryData);
+  addDailyRecovered(countryData);
 }
 
 function addDailyDeaths(countryData) {
@@ -56,6 +57,16 @@ function addDailyConfirmed(countryData) {
       countryData[i].DailyConfirmed = 0;
     } else {
       countryData[i].DailyConfirmed = countryData[i].Confirmed - countryData[i - 1].Confirmed;
+    }
+  }
+}
+
+function addDailyRecovered(countryData) {
+  for (let i = 0; i < countryData.length; i++) {
+    if (i == 0) {
+      countryData[i].DailyRecovered = 0;
+    } else {
+      countryData[i].DailyRecovered = countryData[i].Recovered - countryData[i - 1].Recovered;
     }
   }
 }
@@ -82,7 +93,7 @@ async function populateAllCountries() {
 
 function populateDados() {
   infoEl.innerHTML = "";
-  let stats = ['Active', 'Confirmed', 'DailyConfirmed', 'Deaths', 'Recovered', 'DailyDeaths']
+  let stats = ['Active', 'Confirmed', 'DailyConfirmed', 'Deaths', 'Recovered', 'DailyRecovered', 'DailyDeaths']
   stats.sort();
   stats.forEach(c => {
     let opt = document.createElement('option');
