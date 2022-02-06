@@ -1,5 +1,6 @@
-import { fetchJson, formatLongInteger } from '/util.js';
+import { formatLongInteger } from '/util.js';
 import { getStats, getTopCountries, getCountryData } from '/api.js';
+import { format, parseISO } from 'https://unpkg.com/date-fns?module'
 
 
 async function init() {
@@ -21,9 +22,8 @@ function showGlobalStats(globalStats) {
   confirmedEl.innerText = formatLongInteger(globalStats.TotalConfirmed);
   deathEl.innerText = formatLongInteger(globalStats.TotalDeaths);
   recoveredEl.innerText = formatLongInteger(globalStats.TotalRecovered);
-  let dateEl = document.querySelector('.stats-box .date');
-  dateEl.innerText = globalStats.Date;
-
+  let dateEl = document.querySelector('#date');
+  dateEl.innerText = format(parseISO(globalStats.Date), 'dd/MM/yyyy')
 }
 
 function renderNewStatsChart(globalStats) {
